@@ -20,7 +20,7 @@ const LoginPage = () => {
         accessToken: response.data.data.accessToken,
       }));
       console.log(response.data);
-      sessionStorage.setItem('token',response.data.data.accessToken);
+      localStorage.setItem('token',response.data.data.accessToken);
       navigate('/')
     } catch (error) {
       toast.error(error.response?.data?.message || 'Login failed!');

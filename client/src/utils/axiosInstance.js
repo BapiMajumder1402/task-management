@@ -1,13 +1,14 @@
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const axiosInstance = axios.create({
-    baseURL: process.env.VITE_API_BASE_URL, 
+    baseURL:import.meta.env.VITE_API_BASE_URL, 
     timeout: 10000,
 });
 
 axiosInstance.interceptors.request.use(
     (config) => {
-        const token = sessionStorage.getItem('token');
+        const token = localStorage.getItem('token');
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
@@ -23,8 +24,8 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     (error) => {
-        if (error.response && error.response.status === 403) {
-            console.error('Unauthorized, redirecting to login...');
+        if (error.response && error.response.status === 401) {
+            toast.error('Unauthorized, login again');
         }
         return Promise.reject(error);
     }

@@ -14,6 +14,7 @@ const AppNavbar = () => {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
 
   const handleLogout = () => {
+    localStorage.removeItem('token');
     dispatch(logout());
     setShowOffcanvas(false);
     navigate('/');
@@ -45,7 +46,7 @@ const AppNavbar = () => {
             <Offcanvas.Body>
               <Nav className="ms-auto links">
                 <NavLink to="/" className="navLink" onClick={handleCloseOffcanvas}>Home</NavLink>
-                <NavLink to="/manage-tasks" className="navLink" onClick={handleCloseOffcanvas}>Manage Blogs</NavLink>
+                <NavLink to="/manage-tasks" className="navLink" onClick={handleCloseOffcanvas}>Manage Tasks</NavLink>
                 {user ? (
                   <>
                     <span className="navLink">Welcome, {user.fullName}</span>
