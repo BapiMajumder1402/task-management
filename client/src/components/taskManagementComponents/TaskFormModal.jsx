@@ -48,7 +48,7 @@ const TaskFormModal = ({ showModal, handleClose, handleSubmit, initialValues, ed
                                 </Field>
                                 <ErrorMessage name="status" component="div" className="text-danger" />
                             </div>
-                            <Button type="submit" className="btn btn-primary">{editing ? 'Update' : 'Create'}</Button>
+                            <button type="submit" className="loginRegisterBtn">{editing ? 'Update' : 'Create'}</button>
                         </Form>
                     )}
                 </Formik>

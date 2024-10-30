@@ -154,7 +154,7 @@ const TasksManagePage = () => {
               </ul>
             ) : (
               <div className="text-center">
-                <h4 className='mt-5 text-center'>Please add some tasks</h4>
+                <h4 className='mt-5 text-center'>No Task Found !</h4>
               </div>
             )}
           </>
