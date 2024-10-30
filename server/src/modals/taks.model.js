@@ -4,10 +4,11 @@ const taskSchema = new Schema({
     title: {
         type: String,
         required: [true, "Title is required"],
+        trim: true,
     },
     description: {
         type: String,
-        required: [true, "Description is required"],
+        trim: true,
     },
     status: {
         type: String,
@@ -17,6 +18,11 @@ const taskSchema = new Schema({
     dueDate: {
         type: Date,
         default: null,
+    },
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
 }, { timestamps: true });
 
