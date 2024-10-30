@@ -11,7 +11,7 @@ const useAuth = () => {
     const loginUser = async (values) => {
         try {
             const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/login`, values);
-            toast.success('Login successful!');
+            toast.success(`Login Successful ! Welcome ${response.data.data.user.fullName}`);
             dispatch(login({
                 user: response.data.data.user,
                 accessToken: response.data.data.accessToken,
@@ -28,7 +28,6 @@ const useAuth = () => {
             const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/register`, values);
             toast.success('Registration successful! You can now log in.');
             navigate("/login");
-            console.log(response.data);
         } catch (error) {
             toast.error(error.response?.data?.message || 'Registration failed!');
         }

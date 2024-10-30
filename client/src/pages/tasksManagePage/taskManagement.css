@@ -1,2 +1,6 @@
-.addTaskBtn{height: 5rem;width: 5rem; border-radius: 50%;color: #fff;font-size: 2rem; background: linear-gradient(to right, #F78312 0%, #F44336 100%);margin-left: auto;}
+.addTaskBtn{ color: #fff;font-size: 1rem; background: linear-gradient(to right, #F78312 0%, #F44336 100%);margin-left: auto; border-radius: 8px; padding: .6rem 2rem;}
 .pagination{display:flex; justify-content: center;align-items: center;gap: 1rem;margin-bottom: 3rem;}
+
+@media (max-width:500px) {
+    .addTaskBtn{padding: .3rem 1rem;}
+}

@@ -1,0 +1,13 @@
+.title{font-weight: 600; background: linear-gradient(to right, #F78312 0%, #F44336 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;font-size: 1.5rem;white-space: pre-wrap;word-wrap: break-word;}
+.description{font-size: 1.2rem;white-space: pre-wrap;word-wrap: break-word;}
+.dueDateAndStatus{font-size: .9rem; color: #505050;}
+.status-pending {color: rgb(23, 138, 233);}
+.status-in-progress {color: rgb(255, 174, 0);}
+.status-completed {color: rgb(22, 160, 68);}
+.dueDateAndStatus {margin-bottom: 10px;}
+@media (max-width:500px) {
+.title{font-weight: 500; background: linear-gradient(to right, #F78312 0%, #F44336 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;font-size: 1.1rem;white-space: pre-wrap;word-wrap: break-word;}
+.description{font-size: .9rem;white-space: pre-wrap;word-wrap: break-word;}
+.dueDateAndStatus{font-size: .8rem; color: #505050;}
+.time-remains{font-size: .7rem; line-height: 12px;}
+}

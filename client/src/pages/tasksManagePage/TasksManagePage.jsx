@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { Container } from 'react-bootstrap';
+import { Container, Spinner } from 'react-bootstrap';
 import { FaPenAlt } from "react-icons/fa";
 import { createTask, getTasks, updateTask, deleteTask } from '../../services/tasksApi';
 import TaskFormModal from '../../components/taskManagementComponents/TaskFormModal';
@@ -11,6 +11,7 @@ import './taskManagement.css'
 
 const TasksManagePage = () => {
   const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -31,28 +32,30 @@ const TasksManagePage = () => {
   const [totalPages, setTotalPages] = useState(0);
   const pageSizes = [5, 10, 20, 50];
 
-
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebouncedSearchTitle(searchTitle); 
-    }, 500); 
+      setDebouncedSearchTitle(searchTitle);
+    }, 500);
 
     return () => {
-      clearTimeout(handler); 
+      clearTimeout(handler);
     };
   }, [searchTitle]);
 
   useEffect(() => {
     fetchTasks();
-  }, [debouncedSearchTitle, selectedStatus, sortOrder, currentPage, pageSize]); 
+  }, [debouncedSearchTitle, selectedStatus, sortOrder, currentPage, pageSize]);
 
   const fetchTasks = async () => {
+    setLoading(true);
     try {
-      const response = await getTasks(currentPage, pageSize, debouncedSearchTitle, selectedStatus, sortOrder); 
+      const response = await getTasks(currentPage, pageSize, debouncedSearchTitle, selectedStatus, sortOrder);
       setTasks(response.data.tasks);
       setTotalPages(response.data.totalPages);
     } catch (error) {
       toast.error('Error fetching tasks');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -115,9 +118,10 @@ const TasksManagePage = () => {
         <h2 className='text-center mt-5'>Task Management</h2>
         <div className="d-flex justify-content-end align-items-center">
           <button className='addTaskBtn' onClick={handleCreate}>
-            <FaPenAlt className="mr-2" />
+            <FaPenAlt className="mr-2" /> Add Task
           </button>
         </div>
+
         <TaskFilters
           searchTitle={searchTitle}
           selectedStatus={selectedStatus}
@@ -129,22 +133,40 @@ const TasksManagePage = () => {
           handlePageSizeChange={(e) => setPageSize(Number(e.target.value))}
           pageSizes={pageSizes}
         />
+
         <h3 className="mt-4">Task List</h3>
-        <ul className="list-group">
-          {tasks?.map((task) => (
-            <TaskCard
-              key={task._id}
-              task={task}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
-            />
-          ))}
-        </ul>
+        {loading ? (
+          <div className="text-center">
+            <Spinner animation="border" />
+          </div>
+        ) : (
+          <>
+            {tasks && tasks.length > 0 ? (
+              <ul className="list-group">
+                {tasks.map((task) => (
+                  <TaskCard
+                    key={task._id}
+                    task={task}
+                    onEdit={handleEdit}
+                    onDelete={handleDelete}
+                  />
+                ))}
+              </ul>
+            ) : (
+              <div className="text-center">
+                <h4 className='mt-5 text-center'>Please add some tasks</h4>
+              </div>
+            )}
+          </>
+        )}
+
+      {tasks && tasks.length > 0 &&
         <PaginationControls
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={setCurrentPage}
-        />
+        />}
+
         <TaskFormModal
           showModal={showModal}
           handleClose={() => setShowModal(false)}
