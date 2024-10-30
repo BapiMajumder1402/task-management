@@ -116,10 +116,10 @@ const TasksManagePage = () => {
     <Container>
       <div className="page">
         <h2 className='text-center mt-5'>Task Management</h2>
-        <div className="d-flex justify-content-end align-items-center">
-          <button className='addTaskBtn' onClick={handleCreate}>
-            <FaPenAlt className="mr-2" /> Add Task
-          </button>
+        <div className="d-flex justify-content-center justify-content-md-end align-items-center">
+            <button className='addTaskBtn' onClick={handleCreate}>
+                <FaPenAlt className="mr-2" /> Add Task
+            </button>
         </div>
 
         <TaskFilters
