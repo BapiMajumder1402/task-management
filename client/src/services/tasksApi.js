@@ -7,9 +7,22 @@ export const createTask = async (taskData) => {
     return response.data;
 };
 
-export const getTasks = async () => {
-    const response = await axiosInstance.get(TASK_API_URL);
-    return response.data;
+export const getTasks = async (page = 1, pageSize = 10, title = '', status = '', sort = 'dsc') => {
+    try {
+        const response = await axiosInstance.get(TASK_API_URL, {
+            params: {
+                page,
+                pageSize,
+                title,
+                status,
+                sort,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching tasks:', error);
+        throw error; 
+    }
 };
 
 export const getTaskById = async (taskId) => {

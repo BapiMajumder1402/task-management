@@ -1,0 +1,2 @@
+.addTaskBtn{height: 5rem;width: 5rem; border-radius: 50%;color: #fff;font-size: 2rem; background: linear-gradient(to right, #F78312 0%, #F44336 100%);margin-left: auto;}
+.pagination{display:flex; justify-content: center;align-items: center;gap: 1rem;margin-bottom: 3rem;}

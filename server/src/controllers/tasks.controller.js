@@ -28,10 +28,38 @@ export const createTask = asyncHandler(async (req, res) => {
 });
 
 export const getTasks = asyncHandler(async (req, res) => {
-    const tasks = await Task.find({ owner: req.user._id });
+    const { page = 1, pageSize = 10, title, status, sort = 'asc' } = req.query;
 
-    res.status(200).json(new ApiResponse(200, tasks, "Tasks retrieved successfully"));
+    const query = { owner: req.user._id };
+
+    if (title) {
+        query.title = { $regex: title, $options: 'i' };
+    }
+
+    if (status) {
+        query.status = status;
+    }
+
+    const skip = (page - 1) * pageSize;
+    const sortOrder = sort === 'asc' ? 1 : -1; 
+    const sortBy = { createdAt: sortOrder }; 
+
+    const tasks = await Task.find(query)
+        .sort(sortBy)
+        .skip(skip)
+        .limit(Number(pageSize));
+
+    const totalCount = await Task.countDocuments(query);
+    const totalPages = Math.ceil(totalCount / pageSize);
+    res.status(200).json(new ApiResponse(200, {
+        tasks,
+        totalCount,
+        totalPages,
+        page: Number(page),
+        pageSize: Number(pageSize),
+    }, "Tasks retrieved successfully"));
 });
+
 
 
 export const getTaskById = asyncHandler(async (req, res) => {
