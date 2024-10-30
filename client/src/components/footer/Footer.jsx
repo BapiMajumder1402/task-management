@@ -14,6 +14,9 @@ const Footer = () => {
             <h5>Quick Links</h5>
             <ul className="list-unstyled">
               <li><a href="/" className="text-light">Home</a></li>
+              <li><a href="/manage-tasks" className="text-light">Manage Tasks</a></li>
+              <li><a href="/login" className="text-light">Login</a></li>
+              <li><a href="/register" className="text-light">Register</a></li>
             </ul>
           </Col>
           <Col md={4}>

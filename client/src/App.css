@@ -11,3 +11,10 @@ a{font-family: Montserrat;}
 button{outline: none;border: 0; background-color: transparent;}
 ol{padding: 0;}
 input{padding: .2rem .5rem;}
+.page{min-height: 80vh;}
+.loginRegisterBtn{  background: linear-gradient(to right, #F78312 0%, #F44336 100%);color: #fff;padding: .6rem;width: 100%; border-radius: 5px;}
+.loginRegisterForm{border: 1px solid #7c7c7c75; border-radius: 10px;padding: 3rem;margin: auto;width: 35rem;}
+@media (max-width:500px) {
+  .page{padding: 1rem ;}
+  .loginRegisterForm{padding: 1rem;width: 100%;}
+}

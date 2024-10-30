@@ -3,8 +3,8 @@ import express from 'express';
 import connectDB from './src/db/db.js';
 import cookieParser from 'cookie-parser';
 import cors from "cors";
-import userRoutes from './src/routes/user.routes.js'
-import tasksRoutes from './src/routes/tasks.routes.js'
+import userRoutes from './src/routes/user.routes.js';
+import tasksRoutes from './src/routes/tasks.routes.js';
 
 dotenv.config({
     path: '.env'
@@ -12,8 +12,11 @@ dotenv.config({
 
 const app = express();
 
-
-app.use(cors({ origin: process.env.CORS }));
+app.use(cors({
+    origin: process.env.CORS || "*",
+    methods: ["GET", "POST", "PUT", "DELETE"], 
+    credentials: true
+}));
 app.use(cookieParser());
 app.use(express.json({ limit: "15kb" }));
 app.use(express.urlencoded({ extended: true, limit: "15kb" }));
