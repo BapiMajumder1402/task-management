@@ -1,34 +1,13 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
-import { toast } from 'react-hot-toast';
 import { Container } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { login } from '../../redux/reducers/authSlice';
-import { useNavigate } from 'react-router-dom';
-const LoginPage = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+import useAuth from '../../hooks/useAuth';
 
-  const handleSubmit = async (values) => {
-    try {
-      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/login`, values);
-      toast.success('Login successful!');
-      dispatch(login({
-        user: response.data.data.user,
-        accessToken: response.data.data.accessToken,
-      }));
-      console.log(response.data);
-      localStorage.setItem('token',response.data.data.accessToken);
-      navigate('/')
-    } catch (error) {
-      toast.error(error.response?.data?.message || 'Login failed!');
-    }
-  };
+const LoginPage = () => {
+  const { loginUser } = useAuth();
 
   return (
-
     <Container>
       <div className='d-flex justify-content-center align-items-center page'>
         <div className="loginRegisterForm">
@@ -43,7 +22,7 @@ const LoginPage = () => {
                 .min(6, 'Password must be at least 6 characters')
                 .required('Required'),
             })}
-            onSubmit={handleSubmit}
+            onSubmit={loginUser}
           >
             <Form>
               <div className="mb-3">

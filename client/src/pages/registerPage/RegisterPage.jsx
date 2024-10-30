@@ -1,23 +1,11 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
-import { toast } from 'react-hot-toast';
 import { Container } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 const RegisterPage = () => {
-  const navigate = useNavigate()
-  const handleSubmit = async (values) => {
-    try {
-      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/register`, values);
-      toast.success('Registration successful! You can now log in.');
-      navigate("/login");
-      console.log(response.data);
-    } catch (error) {
-      toast.error(error.response?.data?.message || 'Registration failed!');
-    }
-  };
+  const { registerUser } = useAuth();
 
   return (
     <Container>
@@ -35,7 +23,7 @@ const RegisterPage = () => {
                 .min(6, 'Password must be at least 6 characters')
                 .required('Required'),
             })}
-            onSubmit={handleSubmit}
+            onSubmit={registerUser}
           >
             <Form>
               <div className="mb-3">
