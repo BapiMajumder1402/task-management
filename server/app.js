@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.use(express.json({ limit: "15kb" }));
 app.use(express.urlencoded({ extended: true, limit: "15kb" }));
 
-app.use('/api/users', userRoutes); 
+app.use('/api', userRoutes); 
 app.use('/api/tasks', tasksRoutes); 
 
 connectDB().then(() => {
