@@ -4,6 +4,7 @@ import connectDB from './src/db/db.js';
 import cookieParser from 'cookie-parser';
 import cors from "cors";
 import userRoutes from './src/routes/user.routes.js'
+import tasksRoutes from './src/routes/tasks.routes.js'
 
 dotenv.config({
     path: '.env'
@@ -18,6 +19,7 @@ app.use(express.json({ limit: "15kb" }));
 app.use(express.urlencoded({ extended: true, limit: "15kb" }));
 
 app.use('/api/users', userRoutes); 
+app.use('/api/tasks', tasksRoutes); 
 
 connectDB().then(() => {
     app.listen(process.env.PORT || 8000, () => {

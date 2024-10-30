@@ -4,11 +4,9 @@ const taskSchema = new Schema({
     title: {
         type: String,
         required: [true, "Title is required"],
-        trim: true,
     },
     description: {
         type: String,
-        trim: true,
     },
     status: {
         type: String,
