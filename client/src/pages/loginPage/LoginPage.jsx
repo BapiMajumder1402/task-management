@@ -5,7 +5,7 @@ import { Container } from 'react-bootstrap';
 import useAuth from '../../hooks/useAuth';
 
 const LoginPage = () => {
-  const { loginUser } = useAuth();
+  const { loginUser, loading } = useAuth();
 
   return (
     <Container>
@@ -35,7 +35,13 @@ const LoginPage = () => {
                 <Field name="password" type="password" className="form-control" />
                 <ErrorMessage name="password" component="div" className="text-danger" />
               </div>
-              <button type="submit" className="loginRegisterBtn">Login</button>
+              <button 
+                type="submit" 
+                className="loginRegisterBtn" 
+                disabled={loading}
+              >
+                {loading ? 'Logging in...' : 'Login'}
+              </button>
             </Form>
           </Formik>
         </div>
